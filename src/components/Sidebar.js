@@ -35,12 +35,15 @@ const Sidebar = ({open, toggleNav}) => {
         }
     ]
     return (
-        <Drawer className={styles.sidebar} onClick={toggleNav}  classes={styles.sidebar}
+        <Drawer className={styles.sidebar} onClick={toggleNav}  
         variant="temporary" anchor="left" open={open}>
             <div className={styles.profile}> 
+            <Link to="/profile">
             <Avatar />
+            
             <Typography variant="h2">Name</Typography>
             <Typography variant="p">@username</Typography>
+            </Link>
             </div>
             
             <Divider />
@@ -54,6 +57,7 @@ const Sidebar = ({open, toggleNav}) => {
        ))}
      </List>
      <Divider />
+     <Link to="/signup">Create a new account</Link>
         </Drawer>
     )
 }

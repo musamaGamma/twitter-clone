@@ -5,7 +5,7 @@ export default makeStyles(()=> ({
     sidebar: {
        
         '& .MuiPaper-root' : {
-            width: '80%',
+            width: '65%',
             
         }
        
