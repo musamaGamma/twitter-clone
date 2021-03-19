@@ -8,6 +8,7 @@ import NotificationsPage from './pages/NotificationsPage'
 import SearchPage from './pages/SearchPage'
 import MessagesPage from './pages/MessagesPage'
 import RegisterPage from './pages/RegisterPage'
+import EditProfilePage from './pages/EditProfilePage'
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
     <Route  path="/login"  component={LoginPage}/>
     <Route  path="/signup"  component={RegisterPage}/>
     <Route  path="/profile"  component={ProfilePage}/>
+    <Route  path="/edit-profile"  component={EditProfilePage}/>
     <Route  path="/" exact component={Home}/>
     </Router>
   );

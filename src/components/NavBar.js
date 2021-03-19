@@ -8,7 +8,7 @@ const NavBar = ({toggleNav}) => {
     return (
         <div className={styles.Nav}>
             <IconButton onClick={toggleNav}>
-                <Menu />
+                <Menu style={{fontSize: "2rem"}}/>
             </IconButton>
             <IconButton>
                 <Twitter />

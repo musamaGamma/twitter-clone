@@ -13,20 +13,27 @@ import {
 } from "@material-ui/icons";
 import useStyles from "./FooterNavStyles";
 import { useLocation, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const FooterNav = () => {
   const styles = useStyles();
   const location = useLocation();
   const path = location.pathname;
+
+  const notifications = useSelector(state => state.notifications)
+    const {count} = notifications
  
   return (
     <footer className={styles.footer}>
-        <Link to="/compose">
-            <IconButton className={styles.tweet}>
-                {path == "/messages" ? <MailOutline/> :  <Twitter />}
+      {path == "/messages" ? (<IconButton className={styles.tweet}>
+                 <MailOutline/> 
                
-            </IconButton>
-            </Link>
+            </IconButton>) : ( <Link to="/compose">
+            <IconButton className={styles.tweet}>
+                <Twitter />
+               
+            </IconButton> </Link>)}
+       
       <Divider />
       <div className={styles.navIcons}>
         <IconButton>
@@ -51,7 +58,7 @@ const FooterNav = () => {
                 className={styles.active}
               />
             ) : (
-              <Badge badgeContent={path=== "/notifications"? 0 : 1} className={styles.badge}>
+              <Badge badgeContent={count} className={styles.badge}>
                 
                 <NotificationsOutlined />
               </Badge>

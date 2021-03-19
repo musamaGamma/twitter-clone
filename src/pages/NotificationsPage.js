@@ -4,12 +4,28 @@ import { Avatar, Typography, Divider } from '@material-ui/core'
 import { SettingsOutlined } from '@material-ui/icons'
 import useStyles from './NotifcationsPageStyles'
 import NotificationMessage from '../components/NotificationMessage'
+import { useSelector, useDispatch } from 'react-redux'
+import { NOTICATIONS_READ } from '../actions/types/notificationTypes'
 
-const NotificationsPage = () => {
+const NotificationsPage = ({history}) => {
      
 
+
+    const userLogin = useSelector(state => state.userLogin)
+    const {userInfo} = userLogin
+
+    const notifications = useSelector(state => state.notifications)
+    const {count} = notifications
+   
+    const dispatch = useDispatch()
+    
     useEffect(()=> {
+        if(!userInfo) {
+            history.push("/login")
+        }
         document.title = "Notifications /Twitter"
+        
+        dispatch({type: NOTICATIONS_READ})
        }, [])
     const styles = useStyles()
     return (
@@ -30,7 +46,7 @@ const NotificationsPage = () => {
             <div>
                 <NotificationMessage />
             </div>
-            <FooterNav/>
+            <FooterNav notifCount={count}/>
         </div>
     )
 }

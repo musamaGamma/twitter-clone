@@ -5,8 +5,10 @@ import useStyles from "./RegistePageStyles";
 import { useEffect } from "react";
 import { useState } from "react";
 import {Link} from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux";
+import { signup } from "../actions/userActions";
 
-const RegisterPage = () => {
+const RegisterPage = ({history}) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
@@ -22,9 +24,18 @@ const RegisterPage = () => {
   const [emailErrMsg, setEmailErrMsg] = useState("");
   const [passwordErr, setPasswordErr] = useState(false);
   const [passwordErrMsg, setPasswordErrMsg] = useState("");
+
+
+
+  const userRegister = useSelector(state => state.userRegister)
+  const {userInfo, errors} = userRegister
+  console.log({errors})
   useEffect(() => {
     document.title = "Sign up for twitter";
-  }, []);
+    if(userInfo) {
+      history.push("/")
+    }
+  }, [userInfo]);
 
   
   const validateName = () => {
@@ -52,20 +63,32 @@ const RegisterPage = () => {
   }
 
 
-  const validate = (e) => {
+  const validateEmail = (e) => {
+    setEmailErr(false)
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const valid = re.test(String(email).toLowerCase());
-    if (!valid) {
-      setEmailErr(true);
-      setEmailErrMsg("Please enter a valid email");
-    } else {
-      setEmailErr(false);
-      setEmailErrMsg("");
-    }
+
+    setTimeout(()=> {
+      if(email == "") return
+      if (!valid) {
+        setEmailErr(true);
+        setEmailErrMsg("Please enter a valid email");
+      } else {
+        setEmailErr(false);
+        setEmailErrMsg("");
+      }
+    }, 1000)
+    
   };
+  const dispatch = useDispatch()
   const handleSubmit = (e) => {
     e.preventDefault();
    validatePassword()
+   if(nameErr || emailErr || passwordErr) return
+   dispatch(signup(name, email, password))
+
+   
+   
     
   };
   return (
@@ -74,13 +97,9 @@ const RegisterPage = () => {
         <div />
         <Twitter />
         <Button
-          disabled={   (nameErr && true) ||
-            (emailErr && true) ||
-            (passwordErr && true)}
+          disabled={ !name || !email  || !password || !passwordTwo ? styles.disabled : false}
           className={
-            (nameErr && styles.disabled) ||
-            (emailErr && styles.disabled) ||
-            (passwordErr && styles.disabled)
+           !name || !email  || !password || !passwordTwo ? styles.disabled : null
           }
           form="sign"
           type="submit"
@@ -91,7 +110,9 @@ const RegisterPage = () => {
       </div>
       <div className={styles.content}>
         <form onSubmit={handleSubmit} id="sign" className={styles.form}>
-          <Typography variant="h1">Create your account</Typography>
+          <Typography variant="h1" >Create your account</Typography>
+        {errors && errors.map(error => (<Typography className={styles.errorMessage} variant="body2">{error.msg}</Typography>))}
+        
           <TextField
             required
             fullWidth
@@ -99,7 +120,9 @@ const RegisterPage = () => {
             type="text"
             label="Name"
             variant="outlined"
-            helperText={`${name.length}/50`}
+            className={styles.nameHelpText}
+            inputProps={{maxLength: 20}}
+            helperText={`${name.length}/20`}
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
@@ -107,7 +130,7 @@ const RegisterPage = () => {
             required
             helperText={emailErrMsg}
             error={emailErr}
-            onKeyUp={validate}
+            onKeyUp={validateEmail}
             fullWidth
          
             className={emailErr && styles.errorOutline}
@@ -123,6 +146,7 @@ const RegisterPage = () => {
             type="password"
             label="Password"
             variant="outlined"
+            placeholder="password should be six or more characters"
             onKeyDown={()=> setPasswordErr(false)}
             value={password}
             error={passwordErr}
@@ -134,6 +158,7 @@ const RegisterPage = () => {
             fullWidth
             type="password"
             label="Confirm Password"
+            placeholder="password should be six or more characters"
             variant="outlined"
             onKeyDown={()=> setPasswordErr(false)}
             error={passwordErr}

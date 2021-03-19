@@ -1,5 +1,5 @@
 import {makeStyles} from '@material-ui/core'
-import { BorderRight } from '@material-ui/icons'
+
 
 
 export default makeStyles(()=> ({
@@ -42,7 +42,7 @@ export default makeStyles(()=> ({
         justifyContent: "space-between",
         alignItems: "center",
         position: "relative",
-        background: "black",
+        background: "rgba(0, 0, 0, 0.3)",
         "& .MuiAvatar-root": {
             
            
@@ -62,7 +62,9 @@ export default makeStyles(()=> ({
             borderColor: "#1da1f2",
             color: "#1da1f2",
             fontWeight: "600"
-        }
+        },
+
+        
     },
     avatarContainer: {
 background: "white",
@@ -78,19 +80,20 @@ transform: 'translateY(50%)',
 
 
     },
+   
     profileInfo : {
         margin: "1.2rem",
         marginTop: "3rem",
         
         '& .MuiTypography-h1' : {
             fontSize: "1.2rem",
-            fontWeight: '900',
+            fontWeight: '800',
             marginTop: ".5rem"
         },
         '& .username' : {
-            fontSize: "1.2rem",
+            fontSize: "1rem",
             fontWeight: '400',
-            color: "rgb(91, 112, 131)"
+            color: "#999999"
         },
     },
     profileInfoName: {
@@ -111,13 +114,14 @@ transform: 'translateY(50%)',
               justifyContent: "space-between",
               alignItems: "center",
               width: "fit-content",
+              
               '& .MuiTypography-body2': {
                   marginRight: ".9rem",
                   display: "flex",
                   alignItems: "center",
                   fontSize: "1rem",
                   fontWeight: "200",
-                  color: "rgb(15, 20, 25) ",
+                  color: "black",
                   '& .MuiTypography-h2': {
                    fontSize: "1.2rem",
                    fontWeight: "800",
@@ -157,6 +161,14 @@ transform: 'translateY(50%)',
 
         },
         content: {
-            height: "1000vh"
+           position: "relative",
+           height: "40vh"
+        },
+        loading: {
+            position: "absolute",
+            left: "50%",
+            top: "10%",
+            transform: "translateX(-40%) !important",
+            color: "rgba(29,161,242,1.00)"
         }
 }))

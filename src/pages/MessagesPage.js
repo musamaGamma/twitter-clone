@@ -3,8 +3,9 @@ import FooterNav from '../components/FooterNav'
 import {makeStyles, Avatar, Typography} from "@material-ui/core"
 import { Message } from '@material-ui/icons'
 import ChatMessage from '../components/ChatMessage'
+import { useSelector } from 'react-redux'
 
-const MessagesPage = () => {
+const MessagesPage = ({history}) => {
     const styles = makeStyles(()=> ({
      
 
@@ -36,11 +37,21 @@ const MessagesPage = () => {
                 marginRight: "1rem"
             }
         },
+        empty: {
+            background: "white",
+            height: "3vh"
+        }
       
     }))() 
+    const userLogin = useSelector(state => state.userLogin)
+    const {userInfo} = userLogin
 
+   
 
     useEffect(()=> {
+        if(!userInfo) {
+            history.push("/login")
+        }
         document.title = "Messages /Twitter"
        }, [])
     return (
@@ -50,11 +61,14 @@ const MessagesPage = () => {
                 <Avatar/> 
                 <Typography variant="h2">Messages</Typography>
                 </div>
-                <div>
-                    <ChatMessage />
-                </div>
+                
               
             </div>
+
+            <div>
+                <div className={styles.empty}></div>
+                    <ChatMessage />
+                </div>
             <FooterNav />
         </div>
     )

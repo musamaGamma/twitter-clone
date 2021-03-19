@@ -1,7 +1,7 @@
 import {makeStyles} from '@material-ui/core'
 
 
-export default makeStyles(()=> ({
+export default makeStyles((theme)=> ({
     header: {
         display: "flex",
         justifyContent: "space-between",
@@ -49,5 +49,6 @@ export default makeStyles(()=> ({
             borderBottom: "2px solid rgba(29,161,242,1.00)",
             
         }
-    }
+    },
+    
 }))

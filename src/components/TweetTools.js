@@ -1,8 +1,13 @@
 import React from 'react'
 import { Drawer, List, ListItem, ListItemIcon, ListItemText, makeStyles, Button } from '@material-ui/core'
 import { DeleteOutline, PinDropOutlined, Code, PollOutlined } from '@material-ui/icons'
+import { useDispatch, useSelector } from 'react-redux'
+import { deleteTweet } from '../actions/tweetAction'
 
-const TweetTools = ({setTools, tools}) => {
+const TweetTools = ({id, setTools, tools, owner}) => {
+
+  const profileInfo = useSelector(state => state.profileInfo)
+  const {profile} = profileInfo
 
     const styles = makeStyles(()=> ({
         tweetTools: {
@@ -28,16 +33,22 @@ const TweetTools = ({setTools, tools}) => {
          }
         },
     }))()
+    
+   const  dispatch = useDispatch()
+    const handleDelete = () => {
+      dispatch(deleteTweet(id))
+    }
     return (
         <Drawer className={styles.tweetTools} vairant="temporary" anchor="bottom" open={tools} onClick={()=> setTools(false)}>
         <List>
           <ListItem style={{display: "flex", justifyContent: "center"}}>
-            <span style={{width: "30px", height: "5px", backgroundColor: "grey"}}></span>
+            <span style={{width: "35px", height: "6px", backgroundColor: "rgb(235, 238, 240)", borderRadius: "9999px"}}></span>
           </ListItem>
-          <ListItem className={styles.delete}>
+          {profile && profile._id === owner && ( <ListItem className={styles.delete} onClick={handleDelete}>
           <ListItemIcon><DeleteOutline /></ListItemIcon>
           <ListItemText>Delete</ListItemText>
-          </ListItem>
+          </ListItem>)}
+         
           
           <ListItem>
           <ListItemIcon><PinDropOutlined /></ListItemIcon>

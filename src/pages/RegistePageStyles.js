@@ -53,15 +53,24 @@ export default makeStyles(()=> ({
         }
         
     },
-   normalOutline: {
-      
-   },
+    nameHelpText: {
+      "& .MuiFormHelperText-root": {
+          position: "absolute",
+          top: "0",
+          right: "0"
+      }
+    },
+   
    errorOutline: {
       
         "& .MuiOutlinedInput-notchedOutline": {
             borderColor: "rgb(224, 36, 94) !important"
            }
      
+   },
+   errorMessage: {
+       marginTop: "1rem",
+       color: "rgb(224, 36, 94)"
    },
     
     textForm: {

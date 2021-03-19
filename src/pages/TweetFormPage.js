@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import { Avatar, IconButton, Button, Divider } from '@material-ui/core'
 import { ArrowBack,   Schedule,  PollOutlined,  ImageOutlined, GifOutlined } from '@material-ui/icons'
 import useStyles from './TweetFormPageStyles'
-import { Link } from 'react-router-dom'
 import TweetLimit from '../components/TweetLimit'
+import { createTweet } from '../actions/tweetAction'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
 
 const TweetFormPage = ({history}) => {
    const [tweet, setTweet] = useState("")
@@ -12,10 +14,30 @@ const TweetFormPage = ({history}) => {
     const goBack = () => {
       history.goBack()
     }
-    console.log(tweet.length)
+    const {success} = useSelector(state => state.tweetCreate)
 
    
     const disable = tweet.length < 1 || tweet.length> 280
+    
+    const dispatch = useDispatch()
+    const postTweet = () => {
+        
+        dispatch(createTweet(tweet))
+    }
+    const userLogin = useSelector(state => state.userLogin)
+    const {userInfo} = userLogin
+
+    useEffect(()=> {
+     if(!userInfo) {
+         history.push("/login")
+     }
+    }, [])
+
+    useEffect(()=> {
+        if(success) {
+            history.push("/")
+        }
+    }, [history, success])
     return (
         <div>
             <div className={styles.header}>
@@ -23,7 +45,7 @@ const TweetFormPage = ({history}) => {
                 
                 <IconButton onClick={goBack}> <ArrowBack /> </IconButton>
                
-                <Button variant="contained" disabled={disable} className={disable && styles.disabled}>Tweet</Button>
+                <Button variant="contained" disabled={disable} className={disable && styles.disabled} onClick={postTweet}>Tweet</Button>
                 
             </div>
             <Divider />

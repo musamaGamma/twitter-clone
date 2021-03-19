@@ -7,7 +7,8 @@ export default makeStyles(()=> ({
         bottom: "0",
         zIndex: "10",
         width: '100%',
-        margin: "0"
+        margin: "0",
+        backgroundColor: "white"
     },
     navIcons: {
         display: "flex",

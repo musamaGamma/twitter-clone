@@ -25,7 +25,11 @@ export default makeStyles(()=> ({
     header: {
    fontSize: "2rem",
    fontWeight: "600",
-   marginBottom: "1rem"
+   marginTop: "1rem",
+//    marginBottom: "1rem",
+   width: "80%",
+
+
     },
     input: {
         display: 'block',
@@ -33,7 +37,10 @@ export default makeStyles(()=> ({
         borderColor: "red",
        '& :focus': {
             outlineColor: "red"
-       }
+       },
+    //    "& :first-child": {
+    //        marginTop: "2rem"
+    //    }
     },
     button: {
         marginTop: "1.5rem",
@@ -43,6 +50,11 @@ export default makeStyles(()=> ({
       fontWeight: "500",
       padding: ".7rem",
       marginBottom: "2rem"
+    },
+    errorMessage: {
+        marginTop: "1rem",
+        color: "rgb(224, 36, 94)",
+        width: "80%"
     },
     link: {
 
