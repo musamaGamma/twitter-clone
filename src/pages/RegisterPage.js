@@ -167,8 +167,8 @@ const RegisterPage = ({history}) => {
             onChange={(e) => setPasswordTwo(e.target.value)}
           />
         </form>
-        <div>
-            <Link to="/login" >
+        <div style={{marginTop: "1rem"}}>
+            <Link to="/login">
                 Already have an account
             </Link>
         
