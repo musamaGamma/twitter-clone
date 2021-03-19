@@ -11,6 +11,7 @@ import { getTweets } from '../actions/tweetAction'
 import { CircularProgress, Typography } from '@material-ui/core'
 import {CREATE_TWEET_RESET} from "../actions/types/postTypes"
 import { logout } from '../actions/userActions'
+import { getProfileInfo } from '../actions/profileActions'
 
 const Home = ({history}) => {
     const [open, isOpen] = useState(false)
@@ -21,7 +22,8 @@ const Home = ({history}) => {
      
     const userLogin = useSelector(state => state.userLogin)
     const {userInfo} = userLogin
-  
+    const profileInfo = useSelector(state => state.profileInfo)
+    const { profile, error: errorProfile} = profileInfo 
 
     
     const {loading,tweets, error} = useSelector(state => state.tweetsList)
@@ -32,11 +34,14 @@ const Home = ({history}) => {
     
     useEffect(()=> {
         document.title = "Home / Twitter"
-       
+        if(errorProfile) {
+            dispatch(logout())
+            history.push("/login")
+        }
         if(!userInfo) {
           history.push("/login")
         }
-       
+        dispatch(getProfileInfo())
         dispatch(getTweets())
         dispatch({type: CREATE_TWEET_RESET})
     }, [userInfo, dispatch, history, successDelete, successLike])
@@ -44,7 +49,7 @@ const Home = ({history}) => {
         
         <div className={styles.home}>
             <NavBar toggleNav={toggleNav}/>
-            <Sidebar open={open} toggleNav={toggleNav}/>
+            <Sidebar open={open} toggleNav={toggleNav} profile={profile}/>
           
     {loading? <CircularProgress size="1.6rem" thickness={4}   className={styles.loading}/> : error? <Typography>{error}</Typography> : (
         tweets?.map(tweet => (<Tweet key={tweet.id} id={tweet._id} name={tweet.name} username={tweet.username} time={tweet.createdAt} owner={tweet.user} profileImage={tweet.profileImage} text={tweet.text} likes={tweet.likes}/>))

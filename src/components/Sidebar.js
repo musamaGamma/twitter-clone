@@ -8,11 +8,11 @@ import { useEffect } from 'react'
 import { getProfileInfo } from '../actions/profileActions'
 import { logout } from '../actions/userActions'
 
-const Sidebar = ({open, toggleNav}) => {
+const Sidebar = ({open, toggleNav, profile}) => {
 
     const profileInfo = useSelector(state => state.profileInfo)
     
-    const {profile, error} = profileInfo
+   
     const styles = useStyles()
     console.log({open})
     const itemsList = [
@@ -49,13 +49,7 @@ const Sidebar = ({open, toggleNav}) => {
         dispatch(logout())
         history.push("/login")
     }
-    useEffect(()=> {
-        if(error) {
-            dispatch(logout())
-            history.push("/login")
-        }
-    dispatch(getProfileInfo())
-    }, [])
+   
     return (
         <Drawer className={styles.sidebar} onClick={toggleNav}  
         variant="temporary" anchor="left" open={open}>
