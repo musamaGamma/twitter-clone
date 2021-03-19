@@ -17,7 +17,7 @@ export const saveProfileInfo = (name, bio, coverImage, profileImage) => async(di
        
         
 
-        const {data} = await axios.put("/api/profile", {name, bio, coverImage, profileImage}, config)
+        const {data} = await axios.put("https://m-twitter-api.herokuapp.com/api/profile", {name, bio, coverImage, profileImage}, config)
         dispatch({type: PROFILE_SAVE_SUCCESS, payload: data})
      } catch (error) {
          dispatch({type: PROFILE_SAVE_FAIL, payload: error.message})
@@ -38,7 +38,7 @@ export const getProfileInfo = () => async (dispatch, getState) => {
        
         dispatch({type: PROFILE_INFO_REQUEST})
 
-        const {data} = await axios.get("/api/profile",  config)
+        const {data} = await axios.get("https://m-twitter-api.herokuapp.com/api/profile",  config)
         dispatch({type: PROFILE_INFO_SUCCESS, payload: data})
         localStorage.setItem("profileInfo", JSON.stringify(data))
      } catch (error) {

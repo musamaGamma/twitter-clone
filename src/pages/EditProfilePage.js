@@ -34,7 +34,7 @@ const EditProfilePage = ({history}) => {
  const dispatch = useDispatch()
   const handleSubmit = e => {
     e.preventDefault()
-    dispatch(saveProfileInfo(name, bio, coverImage, profileImage))
+    // dispatch(saveProfileInfo(name, bio))
     
   }
   return (

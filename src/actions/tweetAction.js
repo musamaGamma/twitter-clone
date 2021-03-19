@@ -32,7 +32,7 @@ export const createTweet = (tweet) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.post("/api/tweets", { text: tweet }, config);
+    const { data } = await axios.post("https://m-twitter-api.herokuapp.com/api/tweets", { text: tweet }, config);
     dispatch({ type: CREATE_TWEET_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: CREATE_TWEET_FAIL, payload: error.message });
@@ -53,7 +53,7 @@ export const getTweets = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get("/api/tweets", config);
+    const { data } = await axios.get("https://m-twitter-api.herokuapp.com/api/tweets", config);
     dispatch({ type: GET_TWEETS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: GET_TWEETS_FAIL, payload: error.message });
@@ -74,7 +74,7 @@ export const getProfileTweets = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get("/api/mytweets", config);
+    const { data } = await axios.get("https://m-twitter-api.herokuapp.com/api/mytweets", config);
     dispatch({ type: GET_PROFILE_TWEETS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: GET_PROFILE_TWEETS_FAIL, payload: error.message });
@@ -93,7 +93,7 @@ export const deleteTweet = (id) => async (dispatch, getState) => {
         "x-auth-token": userInfo.token,
       },
     };
-    await axios.delete("/api/tweets/" + id, config);
+    await axios.delete("https://m-twitter-api.herokuapp.com/api/tweets/" + id, config);
     dispatch({ type: DELETE_TWEET_SUCCESS });
   } catch (error) {
     dispatch({ type: DELETE_TWEET_FAIL, payload: error.message });
@@ -113,7 +113,7 @@ export const likeTweet = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.put("/api/tweets/" + id + "/like", {}, config);
+    const { data } = await axios.put("https://m-twitter-api.herokuapp.com/api/tweets/" + id + "/like", {}, config);
     dispatch({ type: LIKE_TWEET, payload: data });
   } catch (error) {
     // dispatch({type: DELETE_TWEET_FAIL, payload: error.message})
@@ -135,7 +135,7 @@ export const unlikeTweet = (id) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.put(
-      "/api/tweets/" + id + "/unlike",
+      "https://m-twitter-api.herokuapp.com/api/tweets/" + id + "/unlike",
       {},
       config
     );
@@ -160,7 +160,7 @@ export const getTweetLikes = (id) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.get(
-      "/api/tweets/" + id + "/likes",
+      "https://m-twitter-api.herokuapp.com//api/tweets/" + id + "/likes",
       {},
       config
     );
