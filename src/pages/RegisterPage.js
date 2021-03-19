@@ -146,11 +146,10 @@ const RegisterPage = ({history}) => {
             type="password"
             label="Password"
             variant="outlined"
-            placeholder="password should be six or more characters"
             onKeyDown={()=> setPasswordErr(false)}
             value={password}
             error={passwordErr}
-            helperText={passwordErrMsg}
+            helperText={passwordErr ?passwordErrMsg : "password should be six or more characters"}
             onChange={(e) => setPassword(e.target.value)}
           />
           <TextField
@@ -158,11 +157,11 @@ const RegisterPage = ({history}) => {
             fullWidth
             type="password"
             label="Confirm Password"
-            placeholder="password should be six or more characters"
+            
             variant="outlined"
             onKeyDown={()=> setPasswordErr(false)}
             error={passwordErr}
-            helperText={passwordErrMsg}
+            helperText={passwordErr ?passwordErrMsg : "password should be six or more characters"}
             value={passwordTwo}
             onChange={(e) => setPasswordTwo(e.target.value)}
           />

@@ -21,8 +21,8 @@ const Home = ({history}) => {
      
     const userLogin = useSelector(state => state.userLogin)
     const {userInfo} = userLogin
-    const profileInfo = useSelector(state => state.profileInfo)
-    const {error: errorProfile} = profileInfo
+  
+
     
     const {loading,tweets, error} = useSelector(state => state.tweetsList)
     const dispatch = useDispatch()
@@ -32,10 +32,7 @@ const Home = ({history}) => {
     
     useEffect(()=> {
         document.title = "Home / Twitter"
-        if(errorProfile) {
-            dispatch(logout())
-            history.push("/login")
-        }
+       
         if(!userInfo) {
           history.push("/login")
         }
